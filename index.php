@@ -46,4 +46,35 @@ class SavingAccount extends BankAccount
 
 $savingAccount = new SavingAccount(100);
 $savingAccount->setInterestRate(0.02)->addInterest()->getBalance();
-echo $savingAccount->getBalance();
+echo $savingAccount->getBalance().PHP_EOL;
+
+
+//?Calling the parent constructor within the child class
+class SavingAccount2 extends BankAccount
+{
+
+    private float $interestRate;
+
+    public function __construct($balance, $interest)
+    {
+        parent::__construct($balance);
+        $this->interestRate = $interest;
+    }
+
+    public function setInterestRate($rate)
+    {
+        $this->interestRate = $rate;
+        return $this;
+    }
+
+    public function addInterest()
+    {
+        $interest = $this->interestRate * $this->getBalance();
+
+        $this->deposit($interest);
+        return $this;
+    }
+}
+
+$savingAccount2 = new SavingAccount2(150, 0.02);
+echo $savingAccount2->addInterest()->getBalance().PHP_EOL;
