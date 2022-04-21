@@ -54,10 +54,21 @@ trait Copier
     }
 }
 
+trait FileLogger
+{
+    public function log($msg){
+        echo "$msg".PHP_EOL;
+    }
+}
+
 class FileUtil
 {
-    use Copier;
+    //trait method override (we use this to prevent conflicts between traits with same method names)
+    use Copier, Logger, FileLogger{
+        Logger::log insteadOf FileLogger;
+    }
 }
 
 $fileUtil = new FileUtil;
 $fileUtil->copy('file A', 'file B');
+$fileUtil->log("Trait method override");
