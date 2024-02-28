@@ -5,7 +5,7 @@
  *? return the float value of (a1/b1) / (a2/b2) rounded to the 2 nearest digits.
  */
 
-$input = "5,12,512,1204";
+$input = "7234,12,5112,55";
 
 /**----------------------------------------------------------------- */
 //* SOLUTION 1:
@@ -24,6 +24,11 @@ $input = "5,12,512,1204";
 //* SOLUTION 2:
 list($num1, $den1, $num2, $den2) = explode(',', $input);
 
-$result  = ($num1 / $den1) / ($num2 / $den2);
-echo round($result, 2);
+try{
+    $result  = ($num1 / $den1) / ($num2 / $den2);
+    echo round($result, 2);
+}
+catch(\DivisionByZeroError $e){
+    echo 0;
+}
 /**----------------------------------------------------------------- */
